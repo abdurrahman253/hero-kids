@@ -6,6 +6,51 @@ import { getSingleProduct } from "@/actions/server/product";
 
 
 
+export async function generateMetadata({ params }) {
+    const { id } = await params;
+  const product = await getSingleProduct(id);
+
+  if (!product?.title) {
+    return {
+      title: "Product Not Found",
+    };
+  }
+
+  return {
+    title: product.title,
+    description: product.bangla || product.description.slice(0, 160),
+
+    openGraph: {
+      title: product.title,
+      description:
+        product.bangla ||
+        "Premium educational toy from Hero Kidz.",
+      images: [
+        {
+          url: product.image,
+          width: 1200,
+          height: 630,
+          alt: product.title,
+        },
+      ],
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description:
+        product.bangla ||
+        "Premium educational toy from Hero Kidz.",
+      images: [product.image],
+    },
+  };
+}
+
+
+
+
+
 const ProductDetailsPage = async ({ params }) => {
   const { id } = await params;
 
