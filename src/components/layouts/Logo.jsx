@@ -7,7 +7,7 @@ const Logo = () => {
         <Link href={"/"} className="flex items-center gap-1">
        <Image
         alt="logo-hero-kidz"
-        src={"/src/app/favicon.ico"}
+        src={"/assets/logo.png"}
         width={50}
         height={40}
       />
